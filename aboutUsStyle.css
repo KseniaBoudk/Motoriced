@@ -1,0 +1,71 @@
+body {
+    background-image: url('images/aboutUsBack.png');
+    background-color: #f7b3cd;
+    background-repeat: repeat;
+    background-size: 80px auto;
+}
+
+.nav-link.active {
+    text-decoration: underline;
+}
+
+
+/* 3. Main Page Layout */
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: calc(100vh - 64px); /* Pushes page content to fill display height minus navbar */
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Forces all cards to have the exact same height */
+    gap: 30px; /* Space between the cards */
+    width: 100%;
+    max-width: 1100px;
+    flex-wrap: wrap; /* Wraps cards neatly to a new line on smaller mobile screens */
+}
+
+.person {
+    background-color: #ffffff;
+    border: 2px solid #1a2536; /* Dark slate outline border from your sketch */
+    border-radius: 40px; /* Large pill-like rounded corners */
+    width: 280px;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.image-container {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Maintains a perfect mathematical square shape */
+    background-color: #1a5f7a; /* Fallback dark blue square color from your wireframe */
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.image-box {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crops the photo neatly to fit the square without squishing or distortion */
+}
+
+.desc {
+    font-size: 1.1rem;
+    color: #000000;
+    text-align: left;
+    width: 100%; /* Keeps text left-aligned with the left edge of the square picture */
+    padding-left: 5px;
+}
