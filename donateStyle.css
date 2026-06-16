@@ -1,0 +1,11 @@
+body {
+    background-image: url('images/donateBack.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.nav-link.active {
+    text-decoration: underline;
+}
