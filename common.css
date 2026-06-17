@@ -26,9 +26,9 @@
 
 .nav-link {
     text-decoration: none;
-    color: white;
+    color: #fdfbd4;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 200;
     transition: opacity 0.2s;
 }
 

@@ -15,7 +15,7 @@
     width: 100%;
     height: 100vh;
 
-    background-image: url('images/background.png');
+    background-image: url('images/stars.png');
     background-size: cover;
     background-position: center bottom;
     background-repeat: no-repeat;
@@ -35,8 +35,8 @@
 
 .main-title {
     font-size: 4rem;
-    font-weight: 700;
-    color: white;
+    font-weight: 200;
+    color: #fdfbd4;
     margin-bottom: 25px;
     letter-spacing: 2px;
     white-space: nowrap;
@@ -54,9 +54,9 @@
 
 .intro {
     font-size: 1.3rem;
-    color: white;
+    color: #fdfbd4;
     line-height: 1.5;
-    font-weight: bold;
+    font-weight: 100;
     animation: fadeIn 2s ease-in-out forwards;
 }
 

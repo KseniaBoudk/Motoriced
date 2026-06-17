@@ -1,5 +1,5 @@
 body {
-    background-image: url('images/auBack.png');
+    background-image: url('images/cityLights.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -22,6 +22,7 @@ body {
 
 .section-title {
     font-size: 1.8rem;
+    font-weight: 200;
     color: #ffffff;
     margin-bottom: 40px;
     text-align: center;
