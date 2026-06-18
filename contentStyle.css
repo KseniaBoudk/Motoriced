@@ -1,5 +1,14 @@
 body {
-    background-image: url('images/stars.png');
+    background-image: 
+        linear-gradient(to bottom, 
+                #000000 0%, 
+                transparent 12%, 
+                transparent 88%, 
+                #000000 100%
+        ),
+        
+        url('images/stars.png');
+        
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
