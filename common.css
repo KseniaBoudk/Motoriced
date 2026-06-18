@@ -11,6 +11,50 @@
     overflow-x: hidden;
 }
 
+body {
+    background-color: #000000; 
+    color: #ffffff; /* Flipped to white so it reads clearly over your black background */
+    line-height: 1.6; /* Adds breathing room between lines of text */
+    -webkit-font-smoothing: antialiased; /* Keeps fonts crisp on modern mobile displays */
+}
+
+/* Fluid Heading Styling */
+h1 {
+    /* clamp(minimum_size, preferred_fluid_size, maximum_size) */
+    font-size: clamp(2rem, 8vw, 4.5rem); 
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Secondary Subheadings or Team Card Headers */
+h2, .section-title {
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Main Body Copy and Team Descriptions */
+p, .subtitle, .desc {
+    font-size: clamp(0.95rem, 2.5vw, 1.2rem);
+    max-width: 90%; /* Prevents text lines from hitting the absolute pixel margins of mobile cases */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Responsive Overrides for Mobile Breakpoints */
+@media (max-width: 600px) {
+    /* Shrinks the spacing between nav links so they do not stack tightly or break to two rows */
+    .navbar nav {
+        gap: 20px; 
+    }
+    
+    .nav-link {
+        font-size: 0.95rem;
+    }
+}
+
+
+
 .navbar {
     width: 100%;
     padding: 20px 0;
