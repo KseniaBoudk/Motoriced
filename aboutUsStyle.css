@@ -19,13 +19,13 @@ body {
 }
 
 
-/* 3. Main Page Layout */
+/*  Main Page Layout */
 .about-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
-    min-height: calc(100vh - 64px); /* Pushes page content to fill display height minus navbar */
+    min-height: calc(100vh - 64px); /* Pushes page to fill display height minus navbar */
 }
 
 .section-title {
@@ -40,17 +40,17 @@ body {
 .team-grid {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* Forces all cards to have the exact same height */
-    gap: 30px; /* Space between the cards */
+    align-items: stretch; /* Forces all to have the exact same height */
+    gap: 30px; /* Space between  */
     width: 100%;
     max-width: 1100px;
-    flex-wrap: wrap; /* Wraps cards neatly to a new line on smaller mobile screens */
+    flex-wrap: wrap; /* Wraps  to a new line on smaller mobile screens */
 }
 
 .person {
     background-color: rgba(30,30,30,0.65);
-    border: none; /* Dark slate outline border from your sketch */
-    border-radius: 40px; /* Large pill-like rounded corners */
+    border: none; 
+    border-radius: 40px; 
     width: 280px;
     padding: 30px 25px;
     display: flex;
@@ -74,13 +74,13 @@ body {
 .image-box {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Crops the photo neatly to fit the square without squishing or distortion */
+    object-fit: cover; /* Crops the photo to fit as square */
 }
 
 .desc {
     font-size: 1.1rem;
     color: #ffffff;
     text-align: left;
-    width: 100%; /* Keeps text left-aligned with the left edge of the square picture */
+    width: 100%; /* Keeps text left-aligned  */
     padding-left: 5px;
 }

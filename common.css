@@ -13,37 +13,37 @@
 
 body {
     background-color: #000000; 
-    color: #ffffff; /* Flipped to white so it reads clearly over your black background */
-    line-height: 1.6; /* Adds breathing room between lines of text */
-    -webkit-font-smoothing: antialiased; /* Keeps fonts crisp on modern mobile displays */
+    color: #ffffff; /* Flipped to white so it reads if no other colour set*/
+    line-height: 1.6; /* space */
+    -webkit-font-smoothing: antialiased; /* Keeps fonts nice */
 }
 
-/* Fluid Heading Styling */
+
 h1 {
-    /* clamp(minimum_size, preferred_fluid_size, maximum_size) */
+    /* for mobile */
     font-size: clamp(2rem, 8vw, 4.5rem); 
     letter-spacing: 1px;
     text-align: center;
 }
 
-/* Secondary Subheadings or Team Card Headers */
+/* for mobile */
 h2, .section-title {
     font-size: clamp(1.4rem, 5vw, 2.2rem);
     margin-bottom: 20px;
     text-align: center;
 }
 
-/* Main Body Copy and Team Descriptions */
+/* for mobile */
 p, .subtitle, .desc {
     font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-    max-width: 90%; /* Prevents text lines from hitting the absolute pixel margins of mobile cases */
+    max-width: 90%; /* Prevents text lines from hitting the edges */
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Responsive Overrides for Mobile Breakpoints */
+/* for mobile */
 @media (max-width: 600px) {
-    /* Shrinks the spacing between nav links so they do not stack tightly or break to two rows */
+    /* so nav links dont go weird */
     .navbar nav {
         gap: 20px; 
     }
@@ -53,7 +53,28 @@ p, .subtitle, .desc {
     }
 }
 
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000; /* if picture not large enough */
+    z-index: 9999; /* Forces it on top of everything */
+    pointer-events: none; /* Prevents the invisible layer from blocking mouse  */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Controls the speed of the fade (0.5 seconds) */
+}
 
+/*  State trigger to fade out the mask */
+.page-transition-overlay.fade-out {
+    opacity: 0;
+}
+
+/* State trigger to fade back in before leaving */
+.page-transition-overlay.fade-in {
+    opacity: 1;
+}
 
 .navbar {
     width: 100%;
