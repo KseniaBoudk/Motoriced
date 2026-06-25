@@ -97,6 +97,7 @@ p, .subtitle, .desc {
     transition: opacity 0.2s;
 }
 
+
 .nav-link:hover {
     opacity: 0.7;
 }

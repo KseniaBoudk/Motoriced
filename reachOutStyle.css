@@ -1,0 +1,19 @@
+body {
+    background-image: 
+        linear-gradient(to bottom, 
+                #000000 0%, 
+                transparent 12%, 
+                transparent 88%, 
+                #000000 100%
+        ),
+        
+        url('images/pyramids.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment:fixed;
+}
+
+.nav-link.active {
+    text-decoration: underline;
+}
