@@ -12,22 +12,29 @@
 
 
     <body>
-        <div class="page-transition-overlay" id="page-overlay"></div>
+        
 
 
-        <header>
-            <nav class="navbar">
+        <header class="site-header">
 
-                <div class="nav-menu">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="aboutUs.html" class="nav-link">About Us</a>
-                    <a href="content.html" class="nav-link">Content</a>
-                    <a href="donate.html" class="nav-link">Donate</a>
-                    <a href="socials.html" class="nav-link">Socials</a>
-                    
-                </div>
+            <!-- left -->
+            <a href="index.html" class="logo">motorised</a>
 
+            <!-- middle -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="aboutUs.html" class="nav-link">About Us</a>
+                <a href="content.html" class="nav-link">Content</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="socials.html" class="nav-link">Socials</a>
             </nav>
+
+            <!-- right -->
+            <button class="menu-toggle" aria-label="Open menu">
+                <span></span>
+                <span></span>
+            </button>
+
         </header>
 
         <main>
@@ -48,7 +55,9 @@
             </div>
         
         </main>
-        <script src="transition.js"></script>
+       
+        <script type="module" src="background.js"></script>
+
 
     </body>
 </html>

@@ -12,34 +12,49 @@
 
 
     <body>
-        <div class="page-transition-overlay" id="page-overlay"></div>
+        
 
 
-        <header>
-            <nav class="navbar">
+        <header class="site-header">
 
-                <div class="nav-menu">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="aboutUs.html" class="nav-link">About Us</a>
-                    <a href="content.html" class="nav-link">Content</a>
-                    <a href="donate.html" class="nav-link">Donate</a>
-                    <a href="socials.html" class="nav-link">Socials</a>
-                    
-                </div>
+            <!-- left -->
+            <a href="index.html" class="logo">motorised</a>
 
+            <!-- middle -->
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="aboutUs.html" class="nav-link">About Us</a>
+                <a href="content.html" class="nav-link">Content</a>
+                <a href="donate.html" class="nav-link">Donate</a>
+                <a href="socials.html" class="nav-link">Socials</a>
             </nav>
+
+            <!-- right -->
+            <button class="menu-toggle" aria-label="Open menu">
+                <span></span>
+                <span></span>
+            </button>
+
         </header>
+
 
         <main class="hero-section">
             <div class="content-wrapper">
-                <h1 class="main-title"> Motorised</h1>
-                <div class="intro">
-                    <p>We are a team preparing for the First Tech Challenge.</p>
+                
+                <p class="statement">
+                    Motorised is a student robotics team designing, coding
+                    and competing in the First Tech Challenge.
+                </p>
+
+                <div class="propeller-stage">
+                    <img class="propeller" src="propeller/propeller.svg" alt="">
                 </div>
-                <img class =hero-image src="images/hourglass.png" alt="Hourglass">
+                
             </div>
         </main>
 
-        <script src="transition.js"></script>
+        
+        <script type="module" src="background.js"></script>
+
     </body>
 </html>
