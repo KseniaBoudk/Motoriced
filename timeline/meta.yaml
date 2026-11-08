@@ -1,0 +1,4 @@
+name: Process Timeline
+description: A horizontal process timeline where steps lift and brighten on hover or selection. Pure CSS, no JavaScript.
+tags: [timeline, hover, css-only, interactive]
+type: component

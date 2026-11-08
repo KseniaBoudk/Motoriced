@@ -1,2 +1,130 @@
+/* ---------- Content page: process timeline ---------- */
 
+.content-page {
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --speed: 500ms;
+  --lift: -28px;      /* how far the active label rises */
+  --dim: 0.55;        /* opacity of inactive labels */
 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12vh;
+  padding-bottom: 8vh;
+  color: #fdfbd4;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 5vw 0;   /* top padding leaves room for the lifted label */
+  border-bottom: 1px solid rgba(253, 251, 212, 0.4);
+}
+
+/* Hide the radio circles but keep them usable by keyboard */
+.timeline input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.step {
+  position: relative;
+  padding: 0 0.25rem 1.5rem;
+  font-size: clamp(0.75rem, 1.4vw, 1.35rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  opacity: var(--dim);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform var(--speed) var(--ease),
+    opacity var(--speed) var(--ease);
+}
+
+/* The tick that grows down to the line */
+.step::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1px;
+  height: 0;
+  background: #fdfbd4;
+  transform: translateX(-50%);
+  transition: height var(--speed) var(--ease);
+}
+
+/* Active state: hover, selected, or keyboard focus */
+.step:hover,
+.timeline input:checked + .step,
+.timeline input:focus-visible + .step {
+  transform: translateY(var(--lift));
+  opacity: 1;
+}
+
+.step:hover::after,
+.timeline input:checked + .step::after,
+.timeline input:focus-visible + .step::after {
+  height: calc(-1 * var(--lift));
+}
+
+/* While hovering a different step, the selected one steps back down */
+.timeline:has(.step:hover) input:checked + .step:not(:hover) {
+  transform: none;
+  opacity: var(--dim);
+}
+
+.timeline:has(.step:hover) input:checked + .step:not(:hover)::after {
+  height: 0;
+}
+
+/* Neighbours of the hovered step lift slightly (wave effect) */
+.step:hover + input + .step,
+.step:has(+ input + .step:hover) {
+  transform: translateY(calc(var(--lift) * 0.3));
+  opacity: 0.8;
+}
+
+/* ---------- Hero text ---------- */
+
+.timeline-hero {
+  padding: 0 5vw;
+}
+
+.timeline-hero h1 {
+  font-size: clamp(2.2rem, 7vw, 6rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-align: left;
+}
+
+.timeline-hero p {
+  margin: 1rem 0 0;
+  max-width: 40ch;
+  opacity: 0.8;
+}
+
+@media (max-width: 700px) {
+  .timeline {
+    padding: 40px 16px 0;
+  }
+
+  .step {
+    padding: 0 0 1.25rem;
+  }
+
+  .timeline-hero {
+    padding: 0 16px;
+  }
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .step,
+  .step::after {
+    transition: none;
+  }
+}

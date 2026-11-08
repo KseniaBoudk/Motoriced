@@ -1,0 +1,150 @@
+:root {
+  /* */
+  
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --speed: 500ms;
+  --lift: -28px;      /* how far the active label rises */
+  --dim: 0.55;        /* opacity of inactive labels */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Inter", system-ui, "Segoe UI", sans-serif;
+  color: #fff;
+  background: var(--bg);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Darkens the bottom so white text stays readable on any photo */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.1) 60%);
+  pointer-events: none;
+}
+
+/* ---------- Timeline ---------- */
+
+.timeline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5vw;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Hide the radio circles but keep them usable by keyboard */
+.timeline input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.step {
+  position: relative;
+  padding: 0 0.25rem 1.5rem;
+  font-size: clamp(0.9rem, 1.4vw, 1.35rem);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  opacity: var(--dim);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform var(--speed) var(--ease),
+    opacity var(--speed) var(--ease);
+}
+
+/* The tick that grows down to the line */
+.step::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1px;
+  height: 0;
+  background: #fff;
+  transform: translateX(-50%);
+  transition: height var(--speed) var(--ease);
+}
+
+/* ---------- Active state: hover, selected, or keyboard focus ---------- */
+
+.step:hover,
+input:checked + .step,
+input:focus-visible + .step {
+  transform: translateY(var(--lift));
+  opacity: 1;
+}
+
+.step:hover::after,
+input:checked + .step::after,
+input:focus-visible + .step::after {
+  height: calc(-1 * var(--lift));
+}
+
+/* While hovering a different step, the selected one steps back down */
+.timeline:has(.step:hover) input:checked + .step:not(:hover) {
+  transform: none;
+  opacity: var(--dim);
+}
+
+.timeline:has(.step:hover) input:checked + .step:not(:hover)::after {
+  height: 0;
+}
+
+/* Neighbours of the hovered step lift slightly (wave effect) */
+.step:hover + input + .step,
+.step:has(+ input + .step:hover) {
+  transform: translateY(calc(var(--lift) * 0.3));
+  opacity: 0.8;
+}
+
+/* ---------- Hero text ---------- */
+
+.hero {
+  position: absolute;
+  left: 5vw;
+  bottom: 6vh;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.hero p {
+  margin-top: 1rem;
+  max-width: 40ch;
+  opacity: 0.8;
+}
+
+/* ---------- Respect reduced-motion settings ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .step,
+  .step::after {
+    transition: none;
+  }
+}
