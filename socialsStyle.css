@@ -1,2 +1,187 @@
+/* ---------- HUD-style social card ---------- */
 
+.hud-card {
+    --cyan: #6ff3ff;
+    --amber: #ffb347;
+    --gold: #ffe27a;
 
+    position: relative;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 36px;
+    width: min(760px, calc(100% - 32px));
+    margin: 40px auto 80px;
+    padding: 32px;
+
+    color: #fdfbd4;
+    text-decoration: none;
+
+    /* gradient border: dark fill on the inside, teal -> amber on the edge */
+    border: 2px solid transparent;
+    background:
+        linear-gradient(rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.85)) padding-box,
+        linear-gradient(120deg, var(--cyan), #0099bb 35%, var(--amber) 80%, var(--gold)) border-box;
+    box-shadow: 0 0 24px rgba(0, 153, 187, 0.35), 0 0 48px rgba(255, 179, 71, 0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hud-card:hover,
+.hud-card:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 0 32px rgba(0, 153, 187, 0.6), 0 0 64px rgba(255, 179, 71, 0.35);
+}
+
+.hud-card:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 6px;
+}
+
+/* chunky corner brackets */
+.hud-card::before,
+.hud-card::after {
+    content: "";
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    pointer-events: none;
+}
+
+.hud-card::before {
+    top: -9px;
+    left: -9px;
+    border-top: 5px solid var(--cyan);
+    border-left: 5px solid var(--cyan);
+    filter: drop-shadow(0 0 6px var(--cyan));
+}
+
+.hud-card::after {
+    bottom: -9px;
+    right: -9px;
+    border-bottom: 5px solid var(--gold);
+    border-right: 5px solid var(--gold);
+    filter: drop-shadow(0 0 6px var(--gold));
+}
+
+/* little + marks */
+.hud-plus {
+    position: absolute;
+    font-size: 22px;
+    line-height: 1;
+    color: #c8fbff;
+    text-shadow: 0 0 8px var(--cyan);
+}
+
+.hud-plus-top {
+    top: 18px;
+    left: 300px;
+}
+
+.hud-plus-bottom {
+    bottom: 14px;
+    left: 14px;
+}
+
+/* image */
+.hud-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background: #3a3a3a;
+}
+
+/* text side, with the dotted rail on the right */
+.hud-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding-right: 40px;
+    border-right: 2px dotted rgba(255, 226, 122, 0.55);
+}
+
+.hud-chevron {
+    position: absolute;
+    top: 4px;
+    right: -10px;
+    color: var(--gold);
+    filter: drop-shadow(0 0 5px var(--gold));
+}
+
+/* undo common.css centring / max-width inside the card */
+.hud-body h2,
+.hud-body p {
+    margin: 0;
+    max-width: none;
+    text-align: left;
+}
+
+.hud-title {
+    font-size: clamp(1.4rem, 4vw, 1.75rem);
+    font-weight: 600;
+    letter-spacing: 5px;
+    color: var(--amber);
+    text-shadow: 0 0 14px rgba(255, 140, 40, 0.85);
+}
+
+.hud-handle {
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
+    letter-spacing: 1px;
+    overflow-wrap: anywhere;
+}
+
+.hud-desc {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* looks like a button; the whole card is the link */
+.hud-btn {
+    align-self: flex-start;
+    margin-top: 10px;
+    padding: 12px 24px;
+    border: 1px solid var(--amber);
+    color: var(--amber);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.hud-card:hover .hud-btn,
+.hud-card:focus-visible .hud-btn {
+    background: var(--amber);
+    color: #111;
+}
+
+/* ---------- mobile ---------- */
+
+@media (max-width: 700px) {
+    .hud-card {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding: 22px;
+    }
+
+    .hud-img {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .hud-plus-top {
+        left: auto;
+        right: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hud-card,
+    .hud-btn {
+        transition: none;
+    }
+
+    .hud-card:hover,
+    .hud-card:focus-visible {
+        transform: none;
+    }
+}
