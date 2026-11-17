@@ -60,22 +60,30 @@ body::before {
   pointer-events: none;
 }
 
+/* The label is the hover/click target and never moves,
+   so the cursor can't "lose" it mid-animation (that caused the flicker).
+   Only the .step-text inside it lifts and fades. */
 .step {
+  display: block;
+  cursor: pointer;
+  user-select: none;
+}
+
+.step-text {
   position: relative;
+  display: block;
   padding: 0 0.25rem 1.5rem;
   font-size: clamp(0.9rem, 1.4vw, 1.35rem);
   font-weight: 300;
   letter-spacing: 0.01em;
   opacity: var(--dim);
-  cursor: pointer;
-  user-select: none;
   transition:
     transform var(--speed) var(--ease),
     opacity var(--speed) var(--ease);
 }
 
 /* The tick that grows down to the line */
-.step::after {
+.step-text::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -89,32 +97,32 @@ body::before {
 
 /* ---------- Active state: hover, selected, or keyboard focus ---------- */
 
-.step:hover,
-input:checked + .step,
-input:focus-visible + .step {
+.step:hover .step-text,
+input:checked + .step .step-text,
+input:focus-visible + .step .step-text {
   transform: translateY(var(--lift));
   opacity: 1;
 }
 
-.step:hover::after,
-input:checked + .step::after,
-input:focus-visible + .step::after {
+.step:hover .step-text::after,
+input:checked + .step .step-text::after,
+input:focus-visible + .step .step-text::after {
   height: calc(-1 * var(--lift));
 }
 
 /* While hovering a different step, the selected one steps back down */
-.timeline:has(.step:hover) input:checked + .step:not(:hover) {
+.timeline:has(.step:hover) input:checked + .step:not(:hover) .step-text {
   transform: none;
   opacity: var(--dim);
 }
 
-.timeline:has(.step:hover) input:checked + .step:not(:hover)::after {
+.timeline:has(.step:hover) input:checked + .step:not(:hover) .step-text::after {
   height: 0;
 }
 
 /* Neighbours of the hovered step lift slightly (wave effect) */
-.step:hover + input + .step,
-.step:has(+ input + .step:hover) {
+.step:hover + input + .step .step-text,
+.step:has(+ input + .step:hover) .step-text {
   transform: translateY(calc(var(--lift) * 0.3));
   opacity: 0.8;
 }
@@ -143,8 +151,8 @@ input:focus-visible + .step::after {
 /* ---------- Respect reduced-motion settings ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .step,
-  .step::after {
+  .step-text,
+  .step-text::after {
     transition: none;
   }
 }

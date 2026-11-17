@@ -40,21 +40,82 @@
 
         <main class="hero-section">
             <div class="content-wrapper">
-                
+
+                <span class="hud-kicker">// TARGET ACQUIRED</span>
+
                 <p class="statement">
                     Motorised is a student robotics team designing, coding
                     and competing in the First Tech Challenge.
                 </p>
 
-                <div class="propeller-stage">
-                    <img class="propeller" src="propeller/propeller.svg" alt="">
+                <div class="reticle-stage">
+
+                    <!-- left callouts -->
+                    <div class="callouts callouts-left">
+                        <div class="callout-row">
+                            <a href="aboutUs.html" class="callout callout-l">
+                                <span class="callout-tag">01 — WHO</span>
+                                <span class="callout-name">About Us</span>
+                            </a>
+                            <span class="wire" aria-hidden="true"></span>
+                            <span class="node" aria-hidden="true"></span>
+                        </div>
+                        <div class="callout-row">
+                            <a href="content.html" class="callout callout-l">
+                                <span class="callout-tag">02 — WHAT</span>
+                                <span class="callout-name">Content</span>
+                            </a>
+                            <span class="wire" aria-hidden="true"></span>
+                            <span class="node" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <!-- the reticle, propeller in the middle -->
+                    <div class="reticle">
+                        <div class="ring-boost ring-boost-a" aria-hidden="true">
+                            <div class="ring ring-ticks"></div>
+                        </div>
+                        <div class="ring ring-outline" aria-hidden="true"></div>
+                        <div class="ring-boost ring-boost-b" aria-hidden="true">
+                            <div class="ring ring-arc"></div>
+                        </div>
+                        <div class="ring ring-dashed" aria-hidden="true"></div>
+                        <div class="crosshair crosshair-h" aria-hidden="true"></div>
+                        <div class="crosshair crosshair-v" aria-hidden="true"></div>
+
+                        <span class="readout readout-top" aria-hidden="true">RPM <span class="rpm-value">———</span></span>
+                        <span class="readout readout-right" aria-hidden="true">090°</span>
+                        <span class="readout readout-left" aria-hidden="true">270°</span>
+
+                        <img class="propeller" src="propeller/propeller.svg" alt="">
+                    </div>
+
+                    <!-- right callouts -->
+                    <div class="callouts callouts-right">
+                        <div class="callout-row">
+                            <span class="node" aria-hidden="true"></span>
+                            <span class="wire" aria-hidden="true"></span>
+                            <a href="donate.html" class="callout callout-r">
+                                <span class="callout-tag">03 — HELP</span>
+                                <span class="callout-name">Donate</span>
+                            </a>
+                        </div>
+                        <div class="callout-row">
+                            <span class="node" aria-hidden="true"></span>
+                            <span class="wire" aria-hidden="true"></span>
+                            <a href="socials.html" class="callout callout-r">
+                                <span class="callout-tag">04 — FOLLOW</span>
+                                <span class="callout-name">Socials</span>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-                
+
             </div>
         </main>
 
         
-        <script type="module" src="background.js"></script>
         <script src="propeller.js" defer></script>
 
     </body>

@@ -3,6 +3,12 @@
 
 const propeller = document.querySelector(".propeller");
 
+// optional reticle bits around the propeller (home page)
+const rpmValue = document.querySelector(".rpm-value");
+const boostA = document.querySelector(".ring-boost-a");   // tick ring
+const boostB = document.querySelector(".ring-boost-b");   // amber arc
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 if (propeller) {
     const MAX_SPEED = 1440;   // degrees per second at full spin (4 turns/s)
     const SPIN_UP = 0.9;      // seconds to reach full speed
@@ -14,6 +20,7 @@ if (propeller) {
     let phase = "idle";       // idle | spinup | hold | spindown
     let phaseTime = 0;
     let lastTime = 0;
+    let ringAngle = 0;        // extra turn the rings pick up while it spins
 
     function setPhase(next) {
         phase = next;
@@ -46,6 +53,20 @@ if (propeller) {
         const blur = (speed / MAX_SPEED) * 1.5;
         propeller.style.transform = `rotate(${angle}deg)`;
         propeller.style.filter = blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : "";
+
+        // live RPM readout (degrees per second / 6 = turns per minute)
+        if (rpmValue) {
+            rpmValue.textContent = phase === "idle"
+                ? "———"
+                : String(Math.round(speed / 6)).padStart(3, "0");
+        }
+
+        // rings speed up with the propeller, in opposite directions
+        if (!reduceMotion && boostA && boostB) {
+            ringAngle = (ringAngle + speed * 0.12 * dt) % 360;
+            boostA.style.transform = `rotate(${ringAngle}deg)`;
+            boostB.style.transform = `rotate(${-ringAngle * 1.6}deg)`;
+        }
 
         if (phase !== "idle") requestAnimationFrame(frame);
     }

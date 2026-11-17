@@ -1,31 +1,39 @@
 
-
-
-
-
-
-
+/* the home page never scrolls (see the short-screen safety net at the bottom) */
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
 
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;        /* grows if content is tall, instead of clipping */
+    height: 100vh;            /* fallback for older browsers */
+    height: 100dvh;           /* exactly one screen, accounts for mobile browser bars */
 
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 
-    padding: 140px 20px 60px;  /* top padding clears the absolute header */
+    padding: 96px 20px 24px;  /* top padding clears the fixed header */
 }
 
 .content-wrapper {
-    max-width: 700px;
+    width: 100%;
+    max-width: 1200px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 24px;
+}
+
+.hud-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: #6ff3ff;
+    text-shadow: 0 0 8px rgba(111, 243, 255, 0.6);
 }
 
 .statement {
@@ -36,22 +44,307 @@
 
     letter-spacing: 0.5px;
     color: #fdfbd4;
-    max-width: 100%;          /* overrides the 90% that common.css puts on all <p> */
+    max-width: 820px;         /* overrides the 90% that common.css puts on all <p> */
     animation: fadeIn 2s ease-in-out forwards;
 }
 
-.propeller-stage {
+
+
+/* ---------- reticle stage: callouts | reticle | callouts ---------- */
+
+.reticle-stage {
+    --cyan: #6ff3ff;
+    --amber: #ffb347;
+    --gold: #ffe27a;
+
+    width: 100%;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+}
+
+.callouts {
     display: flex;
+    flex-direction: column;
+    gap: 90px;
+}
+
+.callout-row {
+    display: flex;
+    align-items: center;
+}
+
+.callouts-left .callout-row {
+    justify-content: flex-end;
+}
+
+/* the boxes */
+.callout {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 200px;
+    padding: 16px 22px;
+
+    text-align: left;
+    text-decoration: none;
+    color: #fdfbd4;
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(255, 179, 71, 0.7);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+/* angled corner on the side facing away from the wire */
+.callout-l {
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 88% 100%, 0 100%);
+}
+
+.callout-r {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 12% 100%, 0 70%);
+}
+
+.callout:hover,
+.callout:focus-visible {
+    border-color: var(--cyan);
+    background: rgba(10, 20, 22, 0.75);
+    box-shadow: 0 0 18px rgba(111, 243, 255, 0.35);
+    outline: none;
+}
+
+.callout-tag {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: var(--amber);
+}
+
+.callout-name {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+/* connector line + glowing dot */
+.wire {
+    flex-grow: 1;
+    max-width: 90px;
+    min-width: 30px;
+    border-top: 1px solid rgba(111, 243, 255, 0.6);
+}
+
+.node {
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--cyan);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--cyan);
+}
+
+
+
+/* ---------- the reticle ---------- */
+
+.reticle {
+    position: relative;
+    /* sized by width AND height so it always fits on one screen;
+       340px = header padding + kicker + statement + gaps */
+    width: clamp(180px, min(34vw, calc(100vh - 340px)), 460px);
+    width: clamp(180px, min(34vw, calc(100dvh - 340px)), 460px);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    overflow: hidden;         /* clips the invisible corners of the rotating rings,
+                                 so spinning never changes the page size */
+
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
+.ring,
+.ring-boost {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* the boost wrappers are turned extra by propeller.js while it spins */
+.ring-boost {
+    inset: 0;
+}
+
+/* outer ring of tick marks */
+.ring-ticks {
+    inset: 0;
+    background: repeating-conic-gradient(rgba(111, 243, 255, 0.8) 0 0.6deg, transparent 0.6deg 6deg);
+    -webkit-mask: radial-gradient(circle, transparent 66%, #000 66.5%, #000 70%, transparent 70.5%);
+            mask: radial-gradient(circle, transparent 66%, #000 66.5%, #000 70%, transparent 70.5%);
+    animation: reticle-spin 40s linear infinite;
+}
+
+.ring-outline {
+    inset: 0;
+    border: 1px solid rgba(111, 243, 255, 0.3);
+}
+
+/* broken amber arc, turns the other way */
+.ring-boost-b {
+    inset: 14%;
+}
+
+.ring-arc {
+    inset: 0;
+    background: conic-gradient(var(--amber) 0 70deg, transparent 70deg 100deg,
+                               var(--amber) 100deg 190deg, transparent 190deg 215deg,
+                               var(--amber) 215deg 320deg, transparent 320deg);
+    -webkit-mask: radial-gradient(circle, transparent 66%, #000 67%);
+            mask: radial-gradient(circle, transparent 66%, #000 67%);
+    filter: drop-shadow(0 0 6px rgba(255, 179, 71, 0.7));
+    opacity: 0.9;
+    animation: reticle-spin 22s linear infinite reverse;
+}
+
+.ring-dashed {
+    inset: 27%;
+    border: 2px dashed rgba(253, 251, 212, 0.45);
+}
+
+.crosshair {
+    position: absolute;
+    pointer-events: none;
+}
+
+.crosshair-h {
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-top: 1px solid rgba(111, 243, 255, 0.25);
+}
+
+.crosshair-v {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    border-left: 1px solid rgba(111, 243, 255, 0.25);
+}
+
+/* little text readouts sitting on the rings */
+.readout {
+    position: absolute;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    background: rgba(10, 10, 10, 0.75);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.readout-top {
+    top: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    letter-spacing: 3px;
+    color: var(--cyan);
+}
+
+.readout-right,
+.readout-left {
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+}
+
+.readout-right { right: 0; }
+.readout-left  { left: 0; }
+
+.rpm-value {
+    display: inline-block;
+    min-width: 3ch;
+    text-align: right;
+}
+
 .propeller {
-    width: clamp(110px, 14vw, 170px);
+    position: relative;       /* sits above the rings */
+    width: 34%;
     height: auto;
     cursor: pointer;
     animation: fadeIn 2s ease-in-out forwards;
 }
 
+@keyframes reticle-spin {
+    to { transform: rotate(360deg); }
+}
 
 
 
+/* ---------- narrow screens: reticle on top, callouts in a 2x2 grid ---------- */
+
+@media (max-width: 900px) {
+    .hero-section {
+        padding: 84px 16px 20px;
+    }
+
+    .content-wrapper {
+        gap: 16px;
+    }
+
+    .reticle-stage {
+        margin-top: 8px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 20px 12px;
+    }
+
+    .reticle {
+        grid-column: 1 / -1;
+        order: -1;
+        /* 500px = header padding + text + the 2x2 boxes below */
+        width: clamp(150px, min(70vw, calc(100vh - 500px)), 380px);
+        width: clamp(150px, min(70vw, calc(100dvh - 500px)), 380px);
+    }
+
+    .callouts {
+        gap: 12px;
+    }
+
+    .wire,
+    .node {
+        display: none;
+    }
+
+    .callout {
+        width: 100%;
+        min-width: 0;
+        padding: 12px 14px;
+    }
+}
+
+
+
+/* ---------- safety net: very short screens (e.g. phone turned sideways) can scroll ---------- */
+
+@media (max-height: 500px) {
+    html, body {
+        height: auto;
+        overflow-y: visible;
+        overflow-x: clip;
+    }
+
+    .hero-section {
+        height: auto;
+        min-height: 100dvh;
+    }
+
+    .reticle {
+        width: clamp(180px, 34vw, 320px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ring-ticks,
+    .ring-arc {
+        animation: none;
+    }
+
+    .callout {
+        transition: none;
+    }
+}
